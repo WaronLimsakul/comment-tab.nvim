@@ -36,11 +36,8 @@ function M.tab_chunk()
     local buf = vim.api.nvim_get_current_buf()
 
     -- Get start and end positions of the visual selection
-    local start_pos = vim.api.nvim_buf_get_mark(buf, "<")
-    local end_pos = vim.api.nvim_buf_get_mark(buf, ">")
-
-    local start_line = start_pos[1] - 1
-    local end_line = end_pos[1] - 1
+    local start_line = vim.api.nvim_buf_get_mark(buf, "<")[1] - 1
+    local end_line = vim.api.nvim_buf_get_mark(buf, ">")[1] - 1
 
     -- Loop through each line in the selection
     for line = start_line, end_line do
@@ -54,6 +51,6 @@ function M.tab_chunk()
 end
 function M.setup(opts)
     opts = opts or {}
-    vim.keymap.set("v", "gc", ":lua require('comment-tab.nvim').comment_chunk()<CR>", { noremap = true, silent = true })
+    vim.keymap.set("v", "<C-/>", ":lua require('comment-tab.nvim').comment_chunk()<CR>", { noremap = true, silent = true })
     vim.keymap.set("v", "gt", ":lua require('comment-tab.nvim').tab_chunk()<CR>", {noremap = true, silent = true})
 end
